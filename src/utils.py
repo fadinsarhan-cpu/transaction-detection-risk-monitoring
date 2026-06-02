@@ -12,11 +12,9 @@ import joblib
 from typing import Any
 
 
-
 def ensure_dir(path: str) -> None:
     """Ensure that a directory exists; create it if necessary."""
     os.makedirs(path, exist_ok=True)
-
 
 
 def save_model(model: Any, path: str) -> None:
@@ -28,7 +26,6 @@ def save_model(model: Any, path: str) -> None:
     """
     ensure_dir(os.path.dirname(path))
     joblib.dump(model, path)
-
 
 
 def load_model(path: str) -> Any:
