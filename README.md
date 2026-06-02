@@ -1,87 +1,126 @@
+<!--
+  This README provides an overview of the Business Intelligence graduation project
+  on transaction detection and risk monitoring. It introduces the objectives,
+  describes the structure of the repository and explains how to reproduce the
+  results. The content in this document replaces the original placeholder
+  README and is intended for submission to the University of Petra.
+-->
+
 # Transaction Detection & Risk Monitoring
 
-This repository contains the complete documentation and assets for a Business Intelligence graduation project titled *Transaction Detection & Risk Monitoring*. The project focuses on detecting suspicious financial transactions using a synthetic anti‑money‑laundering dataset and presenting the results via interactive dashboards.
-
-##**Title Page & Authors**
-Authors
-
-Fadi Sarhan (202020144)
-Supervised by:
-
-Dr.Husam Barham
-University:
-
-University Of Petra
-Course:
-
-307498 – Graduation Project
-Semester:
-
-Second Semester, 2025/2026
-Date:
-
-Date: June 3, 2026
-## Abstract
-
-Financial institutions must identify illicit transactions while minimising disruption to legitimate customers. We built an end‑to‑end pipeline that ingests raw transaction data, cleans and enriches it, applies machine‑learning models to assess risk, and visualises insights via a Power BI dashboard. The project demonstrates how data‑driven methods can improve AML monitoring and compliance.
+This repository contains the code, data and documentation for a Business
+Intelligence graduation project that explores **transaction detection** and
+**risk monitoring** in a financial services context.  The goal of the project
+is to build a data-driven system that can flag suspicious transactions and
+provide actionable insights to compliance teams.
 
 ## Project overview
 
-The core of this project is a synthetic transaction dataset (SAML‑D) containing 9.5 million records with 12 features and 28 typology labels. The workflow covers:
+The project consists of several phases:
 
-1. ETL and data cleaning using Python and pandas;
-2. Exploratory data analysis and feature engineering in Jupyter notebooks;
-3. Machine‑learning models (logistic regression, random forest, XGBoost) developed with scikit‑learn and XGBoost;
-4. Dashboard design in Power BI to visualise risk metrics and flagged transactions.
+1. **Data ingestion and preprocessing:** Raw payment data is ingested and
+   converted into a clean tabular format.  Scripts in `src/data_preprocessing.py`
+   and `src/feature_engineering.py` handle missing values, derive new
+   attributes and normalise the fields for modelling.
 
-## Objectives
+2. **Exploratory data analysis (EDA):** The notebooks in the `notebooks/`
+   directory perform an exploratory analysis to understand the distribution of
+   normal vs. suspicious behaviour.  Charts and summary statistics are saved
+   under `images/eda_charts/`.
 
-- Build a reproducible ETL pipeline for transaction data.
-- Explore and understand the characteristics of normal versus suspicious transactions.
-- Develop a classification model that can detect suspicious transactions with high recall.
-- Design an interactive dashboard for analysts and stakeholders.
-- Summarise the business impact of the modelling approach.
+3. **Modelling:** Supervised models are trained to classify transactions as
+   normal or suspicious.  The training pipeline, hyper-parameter tuning and
+   evaluation metrics are defined in `src/model_training.py`.  Model
+   performance is summarised in `models/model_metrics.md`, and result figures
+   are stored in `images/model_results/`.
+
+4. **Dashboarding:** Interactive dashboards are implemented using Plotly
+   Dash and/or other visualization libraries.  Markdown documentation for
+   dashboards lives in `dashboards/dashboard_description.md`, and screenshots
+   should be placed in `dashboards/dashboard_screenshots/`.  A notebook
+   demonstrating the preparation of dashboard data is provided at
+   `notebooks/05_dashboard_preparation.ipynb`.
+
+5. **Documentation:** The `docs/` folder contains a series of markdown files
+   detailing project requirements, data research, cleaning steps, modelling
+   choices and deployment considerations.  These documents complement this
+   README and serve as a formal report for the graduation project.
 
 ## Repository structure
 
+```text
+├── README.md                 ← Project overview and instructions (you are here)
+├── LICENSE                   ← License information
+├── .gitignore                ← Files and folders excluded from version control
+├── requirements.txt          ← Python dependencies with pinned versions
+├── docs/                     ← Detailed project documentation
+├── data/
+│   ├── raw/                  ← Original datasets (keep `SAML-D_reduced.txt` here)
+│   │   └── README.md         ← Notes about raw data
+│   └── processed/            ← Cleaned datasets ready for analysis
+│       └── README.md         ← Notes about processed data
+├── notebooks/                ← Jupyter notebooks for ETL, EDA, modelling, dashboards
+│   └── 05_dashboard_preparation.ipynb ← Prepares data for dashboards
+├── src/
+│   ├── data_preprocessing.py ← Functions for cleaning and transforming raw data
+│   ├── feature_engineering.py← Feature extraction and selection
+│   ├── model_training.py      ← Training and evaluating ML models
+│   └── utils.py               ← Reusable helper functions
+├── dashboards/
+│   ├── dashboard_description.md ← Explanation of dashboard design and usage
+│   └── dashboard_screenshots/    ← Screenshots of dashboards
+├── models/
+│   └── model_metrics.md      ← Evaluation metrics and discussion of model performance
+└── images/
+    ├── eda_charts/           ← Plots produced during exploratory analysis
+    └── model_results/        ← Visualisations of model outputs
 ```
-.
-├── README.md                 – high‑level overview and links.
-├── docs/                     – detailed documentation for each project phase.
-├── data/                     – local folders for raw and processed data (not committed).
-│   ├── raw/
-│   └── processed/
-├── notebooks/                – Jupyter notebooks for ETL, EDA, statistical analysis and modelling.
-├── src/                      – Python scripts used in the project.
-├── models/                   – saved machine‑learning models.
-├── dashboards/               – Power BI dashboard file(s).
-└── images/                   – figures and screenshots used in the docs.
-```
 
-## Tools used
+## Getting started
 
-- Python, pandas, NumPy, scikit‑learn, XGBoost
-- Imbalanced‑learn for resampling
-- Jupyter notebooks
-- Power BI for dashboarding
-- GitHub for version control
+1. **Install dependencies**
 
-## Dashboard
+   Create a virtual environment (optional) and install the required packages:
 
-The Power BI report is stored in the `dashboards/` folder. To view it, open the `.pbix` file in Power BI Desktop.
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
 
-## Table of contents
+2. **Run the notebooks**
 
-- [Project description and objectives](docs/01_project_description.md)
-- [Data research and acquiring effort](docs/02_data_research.md)
-- [Links to raw data](docs/03_raw_data_links.md)
-- [Data description and understanding](docs/04_data_description.md)
-- [Data cleaning and transformation](docs/05_cleaning_transformation.md)
-- [Data visualisation and dashboard insights](docs/06_visualization_insights.md)
-- [Advanced analytics and AI modelling](docs/07_ai_modeling.md)
-- [Tools research and selection](docs/08_tools_selection.md)
-- [Deployment / use case](docs/09_deployment_use_case.md)
-- [Results](docs/10_results.md)
-- [References](docs/11_references.md)
+   Launch JupyterLab and open the notebooks in the `notebooks/` directory to
+   reproduce the ETL, EDA and modelling steps:
 
-Please refer to the `docs/` folder for in‑depth documentation.
+   ```bash
+   jupyter lab
+   ```
+
+3. **Train models**
+
+   You can run the training pipeline as a script:
+
+   ```bash
+   python src/model_training.py --config configs/train_config.yaml
+   ```
+
+   Adjust the training script and configuration as needed for your chosen
+   algorithms and hyper-parameters.
+
+4. **Build dashboards**
+
+   Once the data is prepared, use Plotly Dash or another BI tool to
+   implement interactive dashboards.  Refer to
+   `dashboards/dashboard_description.md` for guidance.
+
+## Contributing
+
+This repository is maintained for educational purposes.  Contributions are
+welcome via pull requests.  Please ensure that new code follows the existing
+style conventions and includes appropriate documentation.
+
+## License
+
+This project is licensed under the terms of the MIT license.  See the
+`LICENSE` file for details.
