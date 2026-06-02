@@ -2,6 +2,25 @@
 
 This repository contains the complete documentation and assets for a Business Intelligence graduation project titled *Transaction Detection & Risk Monitoring*. The project focuses on detecting suspicious financial transactions using a synthetic anti‑money‑laundering dataset and presenting the results via interactive dashboards.
 
+##**Title Page & Authors**
+Authors
+
+Fadi Sarhan (202020144)
+Supervised by:
+
+Dr.Husam Barham
+University:
+
+University Of Petra
+Course:
+
+307498 – Graduation Project
+Semester:
+
+Second Semester, 2025/2026
+Date:
+
+Date: June 3, 2026
 ## Abstract
 
 Financial institutions must identify illicit transactions while minimising disruption to legitimate customers. We built an end‑to‑end pipeline that ingests raw transaction data, cleans and enriches it, applies machine‑learning models to assess risk, and visualises insights via a Power BI dashboard. The project demonstrates how data‑driven methods can improve AML monitoring and compliance.
