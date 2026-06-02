@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment and IDE settings
+.env
+.vscode/
+.idea/
+
+# Data files that should not be committed
+data/processed/
+data/raw/*.txt
+data/raw/*.csv
+data/raw/*.zip
+
+# Model artifacts
+models/
+
+# Logs and temporary files
+*.log
+tmp/
+
+# Operating system files
+.DS_Store
+Thumbs.db
