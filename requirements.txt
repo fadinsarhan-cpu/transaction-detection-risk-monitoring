@@ -1,8 +1,17 @@
-# To be installed libraries for the project
-pandas
-numpy
-matplotlib
-scikit-learn
-seaborn
-xgboost
-# etc. (add any other libraries you need for your project)
+# Requirements for the transaction detection and risk monitoring project
+# These packages were selected based on the notebooks and scripts used to
+# preprocess data, perform exploratory data analysis, build machine learning
+# models and create dashboards. Versions are pinned to ensure reproducible
+# results. Feel free to update to newer compatible versions as needed.
+
+pandas==1.5.3
+numpy==1.24.4
+scipy==1.10.1
+scikit-learn==1.2.2
+matplotlib==3.7.1
+seaborn==0.12.2
+plotly==5.16.1
+jupyterlab==3.6.6
+notebook==7.0.0
+ipywidgets==8.0.4
+tqdm==4.65.0
