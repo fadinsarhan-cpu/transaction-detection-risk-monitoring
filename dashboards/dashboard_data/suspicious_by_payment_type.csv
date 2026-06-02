@@ -1,0 +1,8 @@
+payment_type,count
+ACH,77
+Cash Deposit,96
+Cash Withdrawal,92
+Cheque,68
+Credit card,88
+Cross-border,167
+Debit card,77
