@@ -3,7 +3,7 @@ Feature engineering functions for transaction detection.
 
 This module defines operations to transform cleaned data into a set of
 features suitable for machine learning models.  Feature engineering may
-include one hot encoding of categorical variables, scaling of numeric
+include one‑hot encoding of categorical variables, scaling of numeric
 attributes, and generation of derived variables (e.g., transaction frequency
 per account).
 """
@@ -18,7 +18,7 @@ from typing import Tuple
 
 
 def build_feature_pipeline(df: pd.DataFrame) -> Tuple[Pipeline, list[str]]:
-    """Build a scikit learn pipeline for feature engineering.
+    """Build a scikit‑learn pipeline for feature engineering.
 
     Args:
         df: Cleaned DataFrame containing raw features.
@@ -43,7 +43,7 @@ def build_feature_pipeline(df: pd.DataFrame) -> Tuple[Pipeline, list[str]]:
     # Fit the transformer to extract feature names
     preprocessor.fit(df)
 
-    # Build feature names after one hot encoding
+    # Build feature names after one‑hot encoding
     feature_names = []
     if numeric_cols:
         feature_names.extend(numeric_cols)
