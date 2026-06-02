@@ -11,7 +11,7 @@
 This repository contains the code, data and documentation for a Business
 Intelligence graduation project that explores **transaction detection** and
 **risk monitoring** in a financial services context.  The goal of the project
-is to build a data-driven system that can flag suspicious transactions and
+is to build a data‑driven system that can flag suspicious transactions and
 provide actionable insights to compliance teams.
 
 ## Project overview
@@ -29,7 +29,7 @@ The project consists of several phases:
    under `images/eda_charts/`.
 
 3. **Modelling:** Supervised models are trained to classify transactions as
-   normal or suspicious.  The training pipeline, hyper-parameter tuning and
+   normal or suspicious.  The training pipeline, hyper‑parameter tuning and
    evaluation metrics are defined in `src/model_training.py`.  Model
    performance is summarised in `models/model_metrics.md`, and result figures
    are stored in `images/model_results/`.
@@ -106,7 +106,7 @@ The project consists of several phases:
    ```
 
    Adjust the training script and configuration as needed for your chosen
-   algorithms and hyper-parameters.
+   algorithms and hyper‑parameters.
 
 4. **Build dashboards**
 
@@ -124,3 +124,32 @@ style conventions and includes appropriate documentation.
 
 This project is licensed under the terms of the MIT license.  See the
 `LICENSE` file for details.
+
+## Reproducibility and Run Order
+
+For a step‑by‑step guide to running the project from scratch, consult
+[`docs/SETUP.md`](docs/SETUP.md).  That document covers cloning the
+repository, creating a virtual environment, installing dependencies and
+executing the notebooks in the correct sequence.  All notebooks and scripts
+are designed to use **relative paths** via `pathlib.Path`, so the
+repository can be moved between machines without breaking file references.
+
+The expected order of execution is:
+
+1. **01_etl_transaction_risk.ipynb** – cleanse and enrich the raw data, saving
+   a tidy CSV to `data/processed/cleaned_transactions.csv`.
+2. **02_eda_exploration.ipynb** – perform exploratory analysis to
+   understand patterns in the cleaned data.
+3. **03_statistical_analysis.ipynb** – run hypothesis tests and create
+   account‑level risk bands.
+4. **04_machine_learning.ipynb** – train and compare models for
+   detecting suspicious transactions.  Evaluation metrics are written to
+   `models/model_metrics.md` and `models/model_comparison.csv`.
+5. **05_dashboard_preparation.ipynb** – generate aggregated tables for the
+   Power BI dashboard.  Outputs are saved to `dashboards/dashboard_data/`.
+
+After executing the notebooks, you can open
+`dashboards/Dashboard_Fadi.pbix` in Power BI Desktop and connect the
+generated CSV files as data sources.  Processed outputs and models are
+deterministically derived from the raw data, ensuring that results can be
+reproduced on other systems.
