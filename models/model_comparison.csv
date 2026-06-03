@@ -1,0 +1,5 @@
+model,accuracy,precision,recall,f1_score,roc_auc,notes
+Baseline Model,0.9989,0.0,0.0,0.0,,Always predicts the majority class
+Logistic Regression,0.835,0.0036,0.5455,0.0072,0.7405,High recall but very low precision due to imbalance
+Random Forest,0.9982,0.0784,0.0606,0.0684,0.5499,Better precision but low recall
+XGBoost,,,,,,Not run in this evaluation

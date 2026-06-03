@@ -1,5 +1,11 @@
-# Processed Data
+## Processed Data
 
-The `data/processed` directory contains cleaned and transformed versions of the raw transaction data. These datasets are generated through the ETL notebooks and scripts in this project and are used for exploratory analysis, feature engineering, and model training.
+The `data/processed` directory stores datasets that have been cleaned and
+transformed from the raw inputs.  These files are ready for analysis and
+modelling.  For example, `SAML-D_clean_optimized.zip` contains optimised
+versions of the raw transactions that have been filtered, anonymised and
+augmented with engineered features.
 
-Each file in this directory should be accompanied by documentation describing the processing steps applied, the date of processing, and any relevant notes. Although personally identifiable information should be removed, processed data may still contain sensitive insights; handle it responsibly and do not share publicly without authorization.
+Keep in mind that processed data may still contain sensitive information.
+When sharing results, ensure that you comply with data‑handling policies and
+remove any personally identifiable information.

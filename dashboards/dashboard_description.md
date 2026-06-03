@@ -1,51 +1,121 @@
-# Dashboard Design & Business Insights
+# Dashboard Description
 
-## Dashboard Purpose
+The **Transaction Detection & Risk Monitoring** dashboard is designed to give
+business stakeholders a clear, actionable view of transaction activity and
+associated risk.  Each page targets a specific audience and decision‑making
+need.  Screenshots of the final dashboards should be stored in
+`dashboards/dashboard_screenshots/` (see file names below).  If the Power BI
+file (`Dashboard_Fadi.pbix`) is too large for GitHub, download it
+separately or use Git LFS; it is not included in this repository by default.
 
-This dashboard supports AML‑style transaction monitoring, suspicious activity analysis, high‑risk account identification, model performance review, and management decision‑making.
+## A. Executive Overview
 
-## Dashboard File
+**Purpose:** Provide a high‑level summary of transaction volume, risk and
+overall AML performance for managers and executives.
 
-The interactive Power BI dashboard is saved in `dashboards/Dashboard_Fadi.pbix`. If the file is included in this repository, you can open it directly. If it is missing or exceeds GitHub’s file size limits, it should be provided via Git Large File Storage (LFS) or delivered externally.
+**Suggested visuals:**
 
-## Dashboard Pages
+- **KPI cards** summarising:
+  - Total transactions
+  - Suspicious transactions
+  - Suspicious transaction rate
+  - Total suspicious amount
+- **Transaction trend line** to show volume over time and highlight spikes.
 
-| Dashboard Page              | Purpose                                     | Suggested Visuals                                                                               | Business Insight                                                  |
-| --------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| Executive Overview          | High‑level risk summary for decision makers | KPI cards, suspicious transaction rate, total transaction amount, suspicious amount, trend line | Helps managers understand overall transaction risk exposure       |
-| Transaction Risk Monitoring | Analyze suspicious transaction patterns     | Suspicious transactions by payment type, currency, bank, and time                               | Helps identify risky transaction channels and suspicious patterns |
-| High‑Risk Accounts          | Identify risky senders and receivers        | Top sender accounts, top receiver accounts, risk bands, suspicious ratio                        | Helps analysts prioritize accounts for investigation              |
-| Typology Analysis           | Understand suspicious behavior types        | Typology distribution, amount by typology, suspicious behavior categories                       | Helps identify common laundering or suspicious behavior patterns  |
-| Model Performance           | Explain the machine learning value          | Confusion matrix, precision, recall, F1‑score, ROC/AUC, model comparison table                  | Helps evaluate whether the model is useful for risk detection     |
-| Investigation Detail        | Analyst drill‑down page                     | Transaction‑level table with filters by date, account, currency, payment type, and risk band    | Helps analysts review suspicious transactions case by case        |
+Screenshot: `01_executive_overview.png`
 
-## Key Performance Indicators
+## B. Transaction Risk Monitoring
 
-| KPI                         | Why it matters                                    |
-| --------------------------- | ------------------------------------------------- |
-| Total transactions          | Overall monitored transaction volume              |
-| Suspicious transactions     | Main AML/risk detection count                     |
-| Suspicious transaction rate | Shows concentration of suspicious activity        |
-| Total suspicious amount     | Shows possible financial exposure                 |
-| High‑risk accounts          | Helps prioritize investigation work               |
-| Top sender banks            | Identifies source‑side risk concentration         |
-| Top receiver banks          | Identifies destination‑side risk concentration    |
-| Suspicious by currency      | Supports currency risk monitoring                 |
-| Suspicious by payment type  | Shows risky transaction channels                  |
-| Model recall                | Measures ability to catch suspicious cases        |
-| False positive rate         | Shows analyst workload caused by incorrect alerts |
+**Purpose:** Analyse patterns in suspicious transactions to understand
+where and how risk is concentrated.
 
-## Business Value
+**Suggested visuals:**
 
-The dashboard helps different stakeholders:
+- Suspicious transactions by payment type
+- Suspicious transactions by currency
+- Suspicious transactions by sender bank (if available)
+- Suspicious transactions by receiver bank (if available)
+- Suspicious transactions over time (daily/weekly/monthly)
 
-* **AML analysts** can drill down to investigate flagged transactions, typologies, and high‑risk accounts.
-* **Compliance officers** use the dashboard to monitor regulatory exposure and document investigation outcomes.
-* **Risk managers** track trends, suspicious volumes, and performance metrics to allocate resources effectively.
-* **Executive decision makers** get a holistic view of risk levels and trends to support strategic decision making.
+Screenshot: `02_transaction_risk.png`
 
-## Screenshot Location
+## C. High‑Risk Accounts
 
-Dashboard screenshots should be stored in:
+**Purpose:** Identify accounts that require further investigation.
 
-`dashboards/dashboard_screenshots/`
+**Suggested visuals:**
+
+- Top sender accounts by suspicious activity
+- Top receiver accounts by suspicious activity
+- Risk bands (Low, Medium, High) summarising account‑level risk
+- Suspicious ratio per account (suspicious transactions / total transactions)
+
+Screenshot: `03_high_risk_accounts.png`
+
+## D. Typology Analysis
+
+**Purpose:** Understand the types of suspicious behaviour detected by the
+models and rules.
+
+**Suggested visuals:**
+
+- Distribution of typologies if a typology column exists
+- Total amount by typology to gauge financial impact
+- Suspicious transactions by behavioural category
+
+## E. Model Performance
+
+**Purpose:** Demonstrate the value of advanced analytics and the efficacy of
+the classification models.
+
+**Suggested visuals:**
+
+- Confusion matrix highlighting true positives, false positives, etc.
+- Precision, recall and F1‑score charts
+- ROC/AUC curves if available
+- Model comparison table summarising evaluation metrics
+
+Screenshot: `04_model_performance.png`
+
+## F. Investigation Detail
+
+**Purpose:** Provide analysts with a detailed view of each suspicious
+transaction and allow interactive filtering.
+
+**Suggested visuals:**
+
+- Transaction‑level table with drill‑down capability
+- Filters for date range, account, payment type, currency, risk band and
+  prediction result
+
+## KPI Table
+
+The table below summarises the key performance indicators (KPIs) used in the
+dashboards and explains why each metric is important.
+
+| KPI                         | Why it matters                                                |
+| --------------------------- | ------------------------------------------------------------- |
+| **Total transactions**      | Overall monitored volume, providing context for risk metrics. |
+| **Suspicious transactions** | Main AML/risk detection count.                                |
+| **Suspicious transaction rate** | Shows the concentration of suspicious behaviour relative to overall volume. |
+| **Total suspicious amount** | Indicates potential financial exposure due to suspicious activity. |
+| **High‑risk accounts**      | Helps prioritise investigations on the most risky customers.   |
+| **Top sender banks**        | Identifies concentration of risk on the payment origin side.   |
+| **Top receiver banks**      | Identifies concentration of risk on the destination side.      |
+| **Suspicious by currency**  | Supports currency‑specific risk monitoring and FX exposure.    |
+| **Suspicious by payment type** | Highlights which transaction channels are most risky.       |
+| **Model recall**            | Measures how effectively the model captures actual suspicious cases. |
+| **False positive rate**     | Indicates analyst workload caused by incorrect alerts.         |
+
+## Notes on the Power BI file
+
+The interactive dashboard is built in Power BI and saved as
+`Dashboard_Fadi.pbix`.  Due to file size constraints, this PBIX file is
+**not** tracked in the Git repository.  You should download or share it
+separately (e.g., via a secure drive or Git LFS).  The screenshots and
+ the exported CSV files in `dashboards/dashboard_data/` provide evidence of
+ the dashboard content for submission.  These files are generated by the
+ notebook `notebooks/05_dashboard_preparation.ipynb` and include
+ `kpi_summary.csv`, `suspicious_by_payment_type.csv`, `suspicious_by_currency.csv`,
+ `high_risk_sender_accounts.csv`, `high_risk_receiver_accounts.csv` and
+ `transaction_trend.csv`.

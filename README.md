@@ -153,3 +153,80 @@ After executing the notebooks, you can open
 generated CSV files as data sources.  Processed outputs and models are
 deterministically derived from the raw data, ensuring that results can be
 reproduced on other systems.
+
+## Dashboard Design & Business Insights
+
+The interactive dashboard turns raw analytics into actionable insights for
+executives, risk managers and investigators.  A detailed description of
+each dashboard page is provided in
+[`dashboards/dashboard_description.md`](dashboards/dashboard_description.md).
+Because the Power BI file (`Dashboard_Fadi.pbix`) is large, it is **not
+tracked** in this repository; download it separately or use Git LFS as
+explained in the dashboard documentation.  Final screenshots of the
+dashboard pages should be stored in
+`dashboards/dashboard_screenshots/`.
+
+The dashboard consists of six pages:
+
+1. **Executive Overview** – high‑level KPIs and a transaction trend.
+2. **Transaction Risk Monitoring** – suspicious transactions by payment type,
+   currency, bank and over time.
+3. **High‑Risk Accounts** – top sender/receiver accounts and risk band
+   summaries.
+4. **Typology Analysis** – distribution of typology codes and suspicious
+   amounts (if available).
+5. **Model Performance** – confusion matrix, precision/recall/F1 metrics,
+   ROC/AUC curves and a model comparison table.
+6. **Investigation Detail** – transaction‑level table with filters for
+   date, account, payment type, currency, risk band and model prediction.
+
+### Key KPIs
+
+| KPI                         | Purpose                                           |
+| --------------------------- | ------------------------------------------------- |
+| Total transactions          | Provides context for risk metrics.                |
+| Suspicious transactions     | Main AML/risk detection count.                    |
+| Suspicious transaction rate | Indicates the concentration of suspicious activity |
+| Total suspicious amount     | Measures potential financial exposure.            |
+| High‑risk accounts          | Helps prioritise investigations.                  |
+| Top sender/receiver banks   | Shows where risk is concentrated on the origin and destination sides. |
+| Suspicious by currency      | Supports currency‑level risk monitoring.          |
+| Suspicious by payment type  | Highlights risky transaction channels.           |
+| Model recall                | Reflects the model’s ability to catch suspicious cases. |
+| False positive rate         | Indicates analyst workload due to incorrect alerts. |
+
+By combining KPIs, distribution charts and a detailed transaction table,
+the dashboard supports both high‑level monitoring and case‑level
+investigation.  Decision‑makers can quickly identify where risk is
+concentrated and drill down into individual transactions.
+
+## Advanced Analytics and AI Modeling
+
+The project includes a machine‑learning pipeline to classify transactions
+as suspicious or normal.  Detailed methodology and results are documented
+in [`docs/07_ai_modeling.md`](docs/07_ai_modeling.md), with the latest
+metrics summarised in [`models/model_metrics.md`](models/model_metrics.md).
+
+The pipeline trains and compares several algorithms — a baseline classifier,
+logistic regression with class weights, a random forest and (optionally)
+XGBoost — using the cleaned dataset.  The notebook
+`notebooks/04_machine_learning.ipynb` handles feature preparation,
+class‑imbalance mitigation, model training, metric computation and result
+export.  Performance metrics are saved to `models/model_comparison.csv`.
+
+In an AML context, **recall** is more important than accuracy or precision:
+missing a suspicious transaction could allow illicit activity to go
+undetected.  However, high‑recall models often produce many false
+positives, increasing analyst workload.  The model comparison table helps
+stakeholders understand this trade‑off and choose a model that balances
+risk appetite and operational capacity.  See `docs/07_ai_modeling.md`
+for a full discussion of the modelling objective, evaluation metrics,
+confusion matrix interpretation, feature importance and limitations.
+
+## Tools Research and Selection
+
+A variety of open‑source and commercial tools were evaluated for this project.  Python, pandas and Jupyter Notebooks were selected for data preparation and analysis; scikit‑learn and optional XGBoost provide the machine‑learning algorithms; Power BI delivers the final dashboard; and GitHub manages version control and submission.  A full comparison of selected tools, justifications and alternative options is provided in [docs/08_tools_selection.md](docs/08_tools_selection.md).
+
+## Project Deployment Effort / Use Case
+
+Turning the analysis into a usable solution requires a clear business workflow and deployment architecture.  In summary, transactions are ingested and cleaned, features are engineered, models assign risk scores, high‑risk cases are flagged, and the Power BI dashboard enables users to monitor KPIs and drill into individual transactions.  See [docs/09_deployment_use_case.md](docs/09_deployment_use_case.md) for the full workflow, target user descriptions, operational considerations and limitations.  A high‑level architecture diagram is available in [images/architecture_diagram.md](images/architecture_diagram.md).

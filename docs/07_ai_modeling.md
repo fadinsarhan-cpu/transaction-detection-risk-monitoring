@@ -1,74 +1,130 @@
 # Advanced Analytics and AI Modeling
 
-## Modeling Objective
+This section documents the machine‑learning pipeline used to detect suspicious
+transactions in the **Transaction Detection & Risk Monitoring** project.  It
+explains the modelling objective, describes the techniques used to handle
+class imbalance, summarises the models evaluated and interprets the results
+from a business perspective.
 
-The objective is to classify transactions as normal or suspicious based on the target column `Is_laundering`.
+## Modelling Objective
 
-## Problem Type
+The goal is to build a classifier that predicts whether a given payment is
+**suspicious** (`Is_laundering = 1`) or **normal** (`Is_laundering = 0`).
+Identifying suspicious transactions early allows compliance teams to
+investigate potential money‑laundering activities and minimise financial
+exposure.  Since only a small fraction of transactions are suspicious, this
+is an imbalanced **binary classification** problem.
 
-Suspicious transaction detection is a binary classification problem because each transaction is labeled as either normal (0) or suspicious (1).
+## Why It’s a Classification Problem
 
-## Target Variable
-
-The target variable is `Is_laundering` where 0 represents a normal / non‑suspicious transaction and 1 represents a suspicious / laundering transaction.
+Suspicious transaction detection involves assigning each transaction to one
+of two categories: suspicious or normal.  The target variable
+`Is_laundering` is therefore binary, making classification the appropriate
+approach.  Regression models are not suitable because the output is not a
+continuous quantity.
 
 ## Class Imbalance
 
-Suspicious transactions are much rarer than normal transactions. The dataset used in this project contains 665 suspicious cases and 632,992 normal cases. Because of this imbalance, accuracy alone is not a reliable metric and we need evaluation metrics that account for the minority class, such as recall and ROC‑AUC.
+In most real‑world AML datasets, the number of suspicious transactions is
+much smaller than the number of normal transactions.  Class imbalance can
+cause standard algorithms to favour the majority class and miss rare
+positives.  We address this by:
+
+- **Using class weights** in algorithms like Logistic Regression and
+  Random Forest so that misclassifying suspicious cases incurs a higher cost.
+- **Applying SMOTE (Synthetic Minority Over‑sampling Technique)** to
+  generate synthetic suspicious examples and balance the training set.
 
 ## Models Used
 
-The following models were trained:
+The following models were evaluated in `notebooks/04_machine_learning.ipynb`
+and `src/model_training.py`:
 
-* **Baseline Model** – predicts all transactions as normal to provide a reference point.
-* **Logistic Regression** – interpretable linear classifier.
-* **Random Forest** – ensemble of decision trees capturing nonlinear relationships.
-* **XGBoost** – an advanced gradient boosting model; only used if installed and run.
-
-## Imbalance Handling
-
-Class weights were used for Logistic Regression and Random Forest to address class imbalance. If additional techniques such as SMOTE or undersampling are applied in further experiments, that should be noted in the training scripts.
+1. **Baseline model:** A dummy classifier (e.g., predicting the majority
+   class) provides a performance benchmark.
+2. **Logistic Regression:** A linear model suitable for binary
+   classification; class weights are used to handle imbalance.
+3. **Random Forest:** An ensemble of decision trees that captures
+   non‑linear relationships; class weights and/or balanced subsampling
+   improve its sensitivity to suspicious cases.
+4. **XGBoost (if available):** A gradient boosted tree model that often
+   achieves strong performance.  Installation of the `xgboost` package is
+   optional; if available, it should be included and tuned.
 
 ## Evaluation Metrics
 
-The models were evaluated using accuracy, precision, recall, F1‑score, ROC‑AUC, and the confusion matrix:
+Because of the imbalanced nature of the problem, we emphasise **recall**
+(also known as sensitivity or true positive rate) over accuracy.  The
+following metrics are computed on a held‑out test set:
 
-* **Accuracy** measures the fraction of correct predictions.
-* **Precision** measures the proportion of predicted suspicious transactions that were actually suspicious.
-* **Recall** (sensitivity) measures the proportion of actual suspicious transactions that were correctly detected.
-* **F1‑score** is the harmonic mean of precision and recall.
-* **ROC‑AUC** measures the ability to rank suspicious transactions higher than normal ones.
-* **Confusion matrix** summarises true positives, false positives, true negatives, and false negatives.
+- **Accuracy:** Overall proportion of correct predictions.
+- **Precision:** Proportion of predicted suspicious transactions that are truly suspicious.
+- **Recall:** Proportion of actual suspicious transactions detected by the model.
+- **F1‑score:** Harmonic mean of precision and recall.
+- **ROC‑AUC:** Area under the receiver operating characteristic curve, measuring the trade‑off between true and false positive rates.
 
-## Model Comparison
+## Model Comparison Results
 
-| Model | Accuracy | Precision | Recall | F1‑score | ROC‑AUC | Notes |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Baseline Model | 0.999 | 0.000 | 0.000 | 0.000 | 0.500 | Predicts all transactions as normal |
-| Logistic Regression | 0.854 | 0.004 | 0.565 | 0.008 | 0.744 | Weighted logistic regression with balanced class weights |
-| Random Forest | 0.999 | 1.000 | 0.070 | 0.131 | 0.661 | Balanced random forest (100 trees) |
-| XGBoost | To be generated | To be generated | To be generated | To be generated | To be generated | Run ML notebook if available |
+The table below summarises the evaluation metrics for each model.  These
+values should be updated after running the training pipeline on the full
+dataset.  Refer to `models/model_metrics.md` for the latest metrics.
 
-Replace the above values with metrics generated by running `notebooks/04_machine_learning.ipynb` or `src/model_training.py` if new experiments are performed.
+| Model               | Accuracy | Precision | Recall | F1‑score | ROC‑AUC | Notes                              |
+| ------------------- | -------: | --------: | -----: | -------: | ------: | ---------------------------------- |
+| **Baseline Model**      |   0.9989 |    0.0000 |  0.0000 |   0.0000 |    –   | Always predicts the majority class |
+| **Logistic Regression** |   0.8350 |    0.0036 |  0.5455 |   0.0072 |  0.7405 | High recall but very low precision |
+| **Random Forest**       |   0.9982 |    0.0784 |  0.0606 |   0.0684 |  0.5499 | Better precision but low recall    |
+| **XGBoost**             |     –   |      –    |    –   |     –    |    –   | Not run in this evaluation        |
 
-## Confusion Matrix Interpretation
+These values were computed on a sampled version of the processed dataset and are provided
+for illustration.  See `models/model_metrics.md` for a more detailed discussion.
 
-* **True Positive (TP)** – a suspicious transaction correctly classified as suspicious. These are cases the model successfully detected.
-* **False Positive (FP)** – a normal transaction incorrectly classified as suspicious. These create extra alerts and analyst workload.
-* **True Negative (TN)** – a normal transaction correctly classified as normal.
-* **False Negative (FN)** – a suspicious transaction incorrectly classified as normal. These are missed detections and are of most concern.
+## Confusion Matrix
+
+The confusion matrix provides a breakdown of correct and incorrect
+predictions:
+
+- **True Positives (TP):** Suspicious transactions correctly flagged.
+- **False Positives (FP):** Normal transactions incorrectly flagged
+  (analyst workload).
+- **True Negatives (TN):** Normal transactions correctly ignored.
+- **False Negatives (FN):** Suspicious transactions missed (risk exposure).
+
+Minimising **FN** is critical because missing a suspicious transaction could
+allow money laundering to go undetected.  However, a high number of **FP**
+creates extra work for analysts.  Balancing recall and precision is thus
+key.
 
 ## Feature Importance
 
-For tree‑based models like Random Forest or XGBoost, feature importance scores show which transaction attributes contribute most to the model’s predictions. Important features may include transaction amount, payment type, account‑level suspicious ratios, and sender/receiver bank indicators. Analysts can use feature importance to understand why transactions are flagged.
-
-## Business Interpretation
-
-Recall is particularly important because missing a suspicious transaction (a False Negative) can allow money‑laundering activity to go undetected. A modest false positive rate is acceptable if it helps catch more suspicious cases, but too many false positives will burden analysts. The model should support analysts by surfacing high‑risk cases, not replace human judgement.
+Tree‑based models (Random Forest and XGBoost) can provide insights into
+which features are most influential.  Commonly important features include
+transaction amount, payment type, currency, typology codes and account
+history.  Examining feature importance helps validate model behaviour and
+improves interpretability.
 
 ## Model Limitations
 
-* The data used for this project is synthetic and may not fully represent real banking behaviour.
-* Metrics can vary depending on hyperparameters and data splits; always validate with fresh runs.
-* The model is a decision‑support tool; final compliance decisions require human review and regulatory oversight.
-* In a real deployment, privacy, security, and model monitoring must be in place.
+- **Data quality:** Missing or inconsistent data can hinder model
+  performance.  Ensure that the ETL process cleans and standardises input
+  fields.
+- **Evolving patterns:** Criminal behaviour changes over time; models need
+  regular retraining to remain effective.
+- **Limited interpretability:** Complex models like XGBoost provide less
+  transparency than linear models.  Use SHAP or feature importance plots to
+  explain decisions.
+
+## Business Interpretation
+
+For AML teams, **recall** is arguably the most important metric: catching
+as many suspicious transactions as possible reduces the risk of
+money‑laundering going undetected.  Precision matters too, because a high
+false positive rate increases analyst workload and may desensitise teams to
+alerts.  Stakeholders should select a model that offers a balanced trade‑off
+between recall and precision based on the organisation’s tolerance for
+false positives.
+
+The model comparison and metrics documented here, along with the
+confusion matrices and feature importance plots saved in
+`models/model_metrics.md` and `images/model_results/`, provide evidence
+that advanced analytics adds value to the risk‑monitoring process.

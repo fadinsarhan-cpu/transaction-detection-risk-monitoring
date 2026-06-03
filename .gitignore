@@ -1,29 +1,47 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+env/
 
-# Jupyter notebook checkpoints
+# Jupyter
 .ipynb_checkpoints/
 
-# Environment and IDE settings
-.env
+# OS / IDE
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
 
-# Data files that should not be committed
-data/processed/
-data/raw/*.txt
-data/raw/*.csv
-data/raw/*.zip
-
-# Model artifacts
-models/
-
-# Logs and temporary files
+# Logs / temporary files
 *.log
-tmp/
+*.tmp
+*.bak
 
-# Operating system files
-.DS_Store
-Thumbs.db
+# Large generated outputs
+models/*.pkl
+models/*.joblib
+*.parquet
+
+# Data rules: ignore generic local data exports but keep the project datasets
+/data/raw/*.csv
+/data/raw/*.xlsx
+/data/raw/*.parquet
+/data/raw/*.txt
+!/data/raw/SAML-D_reduced.txt
+/data/processed/*.csv
+/data/processed/*.parquet
+/data/processed/*.zip
+!/data/processed/SAML-D_clean_optimized.zip
+
+# Known template/example artifacts that should not be tracked
+dashboards/file.example
+data/raw/exampledata.csv
+data/processed/exampledata.csv
+images/use-template.png
+models/model.txt
+notebooks/code_example.ipynb
