@@ -8,6 +8,34 @@
 
 # Transaction Detection & Risk Monitoring
 
+## Title Page & Authors
+
+**Title:** Transaction Detection & Risk Monitoring  
+**Author:** Fadi Sarhan (202020144)  
+**Supervisor:** Dr. Husam Barham  
+**University:** University of Petra  
+**Course:** 307498 – Graduation Project  
+**Semester:** Second Semester, 2025/2026  
+**Date:** June 3, 2026  
+
+## Table of Contents
+
+- [Title Page & Authors](#title-page--authors)
+- [Abstract](#abstract)
+- [Acknowledgment](#acknowledgment)
+- [Business Intelligence Project Description and Objectives](#business-intelligence-project-description-and-objectives)
+- [Data Research and Acquiring Effort](#data-research-and-acquiring-effort)
+- [Data Description and Understanding](#data-description-and-understanding)
+- [Data Primary Cleaning and Transformation](#data-primary-cleaning-and-transformation)
+- [Data Visualization and Insights](#data-visualization-and-insights)
+- [Dashboard Design & Business Insights](#dashboard-design--business-insights)
+- [Advanced Analytics and AI Modeling](#advanced-analytics-and-ai-modeling)
+- [Tools Research and Selection Effort](#tools-research-and-selection-effort)
+- [Project Deployment Effort / Use Case](#project-deployment-effort--use-case)
+- [Results](#results)
+- [References](#references)
+- [Setup and Run Instructions](#setup-and-run-instructions)
+
 This repository contains the code, data and documentation for a Business
 Intelligence graduation project that explores **transaction detection** and
 **risk monitoring** in a financial services context.  The goal of the project
