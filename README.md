@@ -1,260 +1,283 @@
-<!--
-  This README provides an overview of the Business Intelligence graduation project
-  on transaction detection and risk monitoring. It introduces the objectives,
-  describes the structure of the repository and explains how to reproduce the
-  results. The content in this document replaces the original placeholder
-  README and is intended for submission to the University of Petra.
--->
-
 # Transaction Detection & Risk Monitoring
 
 ## Title Page & Authors
 
-**Title:** Transaction Detection & Risk Monitoring  
-**Author:** Fadi Sarhan (202020144)  
-**Supervisor:** Dr. Husam Barham  
-**University:** University of Petra  
-**Course:** 307498 – Graduation Project  
-**Semester:** Second Semester, 2025/2026  
-**Date:** June 3, 2026  
+**Title:** Transaction Detection & Risk Monitoring
+**Author:** Fadi Sarhan (202020144)
+**Supervisor:** Dr. Husam Barham
+**University:** University of Petra
+**Course:** 307498 – Graduation Project
+**Semester:** Second Semester, 2025/2026
+**Date:** June 3, 2026
 
 ## Table of Contents
 
-- [Title Page & Authors](#title-page--authors)
-- [Abstract](#abstract)
-- [Acknowledgment](#acknowledgment)
-- [Business Intelligence Project Description and Objectives](#business-intelligence-project-description-and-objectives)
-- [Data Research and Acquiring Effort](#data-research-and-acquiring-effort)
-- [Data Description and Understanding](#data-description-and-understanding)
-- [Data Primary Cleaning and Transformation](#data-primary-cleaning-and-transformation)
-- [Data Visualization and Insights](#data-visualization-and-insights)
-- [Dashboard Design & Business Insights](#dashboard-design--business-insights)
-- [Advanced Analytics and AI Modeling](#advanced-analytics-and-ai-modeling)
-- [Tools Research and Selection Effort](#tools-research-and-selection-effort)
-- [Project Deployment Effort / Use Case](#project-deployment-effort--use-case)
-- [Results](#results)
-- [References](#references)
-- [Setup and Run Instructions](#setup-and-run-instructions)
+* [Title Page & Authors](#title-page--authors)
+* [Abstract](#abstract)
+* [Acknowledgment](#acknowledgment)
+* [Business Intelligence Project Description and Objectives](#business-intelligence-project-description-and-objectives)
+* [Data Research and Acquiring Effort](#data-research-and-acquiring-effort)
+* [Data Description and Understanding](#data-description-and-understanding)
+* [Data Primary Cleaning and Transformation](#data-primary-cleaning-and-transformation)
+* [Data Visualization and Insights](#data-visualization-and-insights)
+* [Dashboard Design & Business Insights](#dashboard-design--business-insights)
+* [Advanced Analytics and AI Modeling](#advanced-analytics-and-ai-modeling)
+* [Tools Research and Selection Effort](#tools-research-and-selection-effort)
+* [Project Deployment Effort / Use Case](#project-deployment-effort--use-case)
+* [Results](#results)
+* [References](#references)
+* [Setup and Run Instructions](#setup-and-run-instructions)
 
-This repository contains the code, data and documentation for a Business
-Intelligence graduation project that explores **transaction detection** and
-**risk monitoring** in a financial services context.  The goal of the project
-is to build a data‑driven system that can flag suspicious transactions and
-provide actionable insights to compliance teams.
+## Abstract
 
-## Project overview
+The project **Transaction Detection & Risk Monitoring** focuses on analyzing financial transaction data to detect suspicious activities and monitor transaction risk. The main objective is to apply Business Intelligence and Data Analytics techniques to support the identification of potential fraud, money-laundering behavior, and high-risk transaction patterns.
 
-The project consists of several phases:
+The project uses a synthetic AML transaction dataset and follows a complete BI workflow: data acquisition, data cleaning, transformation, exploratory data analysis, visualization, dashboard design, and machine learning. The final solution supports compliance teams, risk managers, analysts, and decision-makers by providing KPIs, risk insights, suspicious transaction trends, and model-based detection support.
 
-1. **Data ingestion and preprocessing:** Raw payment data is ingested and
-   converted into a clean tabular format.  Scripts in `src/data_preprocessing.py`
-   and `src/feature_engineering.py` handle missing values, derive new
-   attributes and normalise the fields for modelling.
+## Acknowledgment
 
-2. **Exploratory data analysis (EDA):** The notebooks in the `notebooks/`
-   directory perform an exploratory analysis to understand the distribution of
-   normal vs. suspicious behaviour.  Charts and summary statistics are saved
-   under `images/eda_charts/`.
+I would like to thank **Dr. Husam Barham** for his guidance and support throughout this project. I also thank the **University of Petra**, my family, friends, and everyone who supported me during the completion of this graduation project.
 
-3. **Modelling:** Supervised models are trained to classify transactions as
-   normal or suspicious.  The training pipeline, hyper‑parameter tuning and
-   evaluation metrics are defined in `src/model_training.py`.  Model
-   performance is summarised in `models/model_metrics.md`, and result figures
-   are stored in `images/model_results/`.
+## Business Intelligence Project Description and Objectives
 
-4. **Dashboarding:** Interactive dashboards are implemented using Plotly
-   Dash and/or other visualization libraries.  Markdown documentation for
-   dashboards lives in `dashboards/dashboard_description.md`, and screenshots
-   should be placed in `dashboards/dashboard_screenshots/`.  A notebook
-   demonstrating the preparation of dashboard data is provided at
-   `notebooks/05_dashboard_preparation.ipynb`.
+This repository contains the code, data, notebooks, dashboard documentation, source scripts, and project documentation for a Business Intelligence graduation project focused on transaction detection and risk monitoring in a financial services context.
 
-5. **Documentation:** The `docs/` folder contains a series of markdown files
-   detailing project requirements, data research, cleaning steps, modelling
-   choices and deployment considerations.  These documents complement this
-   README and serve as a formal report for the graduation project.
+The goal of the project is to build a data-driven analytical workflow that can identify suspicious transaction patterns, support AML-style monitoring, and provide actionable insights to compliance and risk teams.
 
-## Repository structure
+The main project objectives are:
 
-```text
-├── README.md                 ← Project overview and instructions (you are here)
-├── LICENSE                   ← License information
-├── .gitignore                ← Files and folders excluded from version control
-├── requirements.txt          ← Python dependencies with pinned versions
-├── docs/                     ← Detailed project documentation
-├── data/
-│   ├── raw/                  ← Original datasets (keep `SAML-D_reduced.txt` here)
-│   │   └── README.md         ← Notes about raw data
-│   └── processed/            ← Cleaned datasets ready for analysis
-│       └── README.md         ← Notes about processed data
-├── notebooks/                ← Jupyter notebooks for ETL, EDA, modelling, dashboards
-│   └── 05_dashboard_preparation.ipynb ← Prepares data for dashboards
-├── src/
-│   ├── data_preprocessing.py ← Functions for cleaning and transforming raw data
-│   ├── feature_engineering.py← Feature extraction and selection
-│   ├── model_training.py      ← Training and evaluating ML models
-│   └── utils.py               ← Reusable helper functions
-├── dashboards/
-│   ├── dashboard_description.md ← Explanation of dashboard design and usage
-│   └── dashboard_screenshots/    ← Screenshots of dashboards
-├── models/
-│   └── model_metrics.md      ← Evaluation metrics and discussion of model performance
-└── images/
-    ├── eda_charts/           ← Plots produced during exploratory analysis
-    └── model_results/        ← Visualisations of model outputs
-```
+1. Clean and prepare transaction data for analysis.
+2. Explore suspicious transaction patterns and risk indicators.
+3. Build dashboard-ready KPIs and visualizations.
+4. Train and evaluate machine learning models for suspicious transaction detection.
+5. Support compliance, investigation, and risk-monitoring decisions using Business Intelligence outputs.
 
-## Getting started
+The project is organized into the following phases:
 
-1. **Install dependencies**
+1. **Data ingestion and preprocessing:** Raw transaction data is loaded, cleaned, and transformed into a structured format suitable for analysis.
+2. **Exploratory data analysis:** Notebooks are used to study transaction distributions, suspicious activity patterns, and account-level risk indicators.
+3. **Statistical analysis:** Statistical tests and risk segmentation are used to better understand transaction behavior and laundering indicators.
+4. **Machine learning:** Classification models are trained and compared to detect suspicious transactions.
+5. **Dashboarding:** Dashboard-ready tables and Power BI documentation are prepared to support business users and analysts.
+6. **Documentation:** Markdown documentation explains the project methodology, tools, deployment use case, results, and final audit.
 
-   Create a virtual environment (optional) and install the required packages:
+## Data Research and Acquiring Effort
 
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
+Real banking transaction data is usually private, sensitive, and restricted because of confidentiality, privacy, and financial security regulations. For this reason, the project uses the **SAML-D synthetic AML transaction dataset**, which is suitable for academic AML-style transaction monitoring and suspicious activity analysis.
 
-2. **Run the notebooks**
+The dataset was selected because it contains transaction-level records and a target label indicating laundering or suspicious activity. This makes it suitable for Business Intelligence analysis, dashboard design, and supervised machine learning classification.
 
-   Launch JupyterLab and open the notebooks in the `notebooks/` directory to
-   reproduce the ETL, EDA and modelling steps:
+More details are available in [`docs/02_data_research.md`](docs/02_data_research.md) and [`docs/03_raw_data_links.md`](docs/03_raw_data_links.md).
 
-   ```bash
-   jupyter lab
-   ```
+## Data Description and Understanding
 
-3. **Train models**
+The dataset contains transaction-level records that describe the movement of funds between sender and receiver accounts. The main fields include sender account, receiver account, transaction amount, payment currency, received currency, sender bank location, receiver bank location, payment type, laundering label, laundering type, and transaction date/time.
 
-   You can run the training pipeline as a script:
+The target variable used for suspicious transaction detection is the laundering indicator, which identifies whether a transaction is normal or suspicious/laundering-related.
 
-   ```bash
-   python src/model_training.py --config configs/train_config.yaml
-   ```
+A detailed data dictionary is available in [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md).
 
-   Adjust the training script and configuration as needed for your chosen
-   algorithms and hyper‑parameters.
+## Data Primary Cleaning and Transformation
 
-4. **Build dashboards**
+The data cleaning and transformation process prepares the raw dataset for analysis, modeling, and dashboarding. The process includes loading the raw transaction file, standardizing column names, handling missing values, converting data types, removing duplicate records, preparing the target variable, and saving the processed dataset for later stages.
 
-   Once the data is prepared, use Plotly Dash or another BI tool to
-   implement interactive dashboards.  Refer to
-   `dashboards/dashboard_description.md` for guidance.
+The processed dataset is used by the EDA notebooks, statistical analysis notebook, machine learning notebook, and dashboard preparation notebook.
 
-## Contributing
+More details are available in [`docs/05_cleaning_transformation.md`](docs/05_cleaning_transformation.md).
 
-This repository is maintained for educational purposes.  Contributions are
-welcome via pull requests.  Please ensure that new code follows the existing
-style conventions and includes appropriate documentation.
+## Data Visualization and Insights
 
-## License
+The project includes exploratory visualizations and dashboard-ready outputs to understand suspicious transaction behavior. Key visual areas include suspicious transactions by payment type, suspicious transactions by currency, transaction amount patterns, account-level risk, transaction trends, and laundering-related behavior.
 
-This project is licensed under the terms of the MIT license.  See the
-`LICENSE` file for details.
+These visualizations support business users by showing where suspicious activity is concentrated and which accounts, transaction types, or patterns require more attention.
 
-## Reproducibility and Run Order
-
-For a step‑by‑step guide to running the project from scratch, consult
-[`docs/SETUP.md`](docs/SETUP.md).  That document covers cloning the
-repository, creating a virtual environment, installing dependencies and
-executing the notebooks in the correct sequence.  All notebooks and scripts
-are designed to use **relative paths** via `pathlib.Path`, so the
-repository can be moved between machines without breaking file references.
-
-The expected order of execution is:
-
-1. **01_etl_transaction_risk.ipynb** – cleanse and enrich the raw data, saving
-   a tidy CSV to `data/processed/cleaned_transactions.csv`.
-2. **02_eda_exploration.ipynb** – perform exploratory analysis to
-   understand patterns in the cleaned data.
-3. **03_statistical_analysis.ipynb** – run hypothesis tests and create
-   account‑level risk bands.
-4. **04_machine_learning.ipynb** – train and compare models for
-   detecting suspicious transactions.  Evaluation metrics are written to
-   `models/model_metrics.md` and `models/model_comparison.csv`.
-5. **05_dashboard_preparation.ipynb** – generate aggregated tables for the
-   Power BI dashboard.  Outputs are saved to `dashboards/dashboard_data/`.
-
-After executing the notebooks, you can open
-`dashboards/Dashboard_Fadi.pbix` in Power BI Desktop and connect the
-generated CSV files as data sources.  Processed outputs and models are
-deterministically derived from the raw data, ensuring that results can be
-reproduced on other systems.
+More details are available in [`docs/06_visualization_insights.md`](docs/06_visualization_insights.md).
 
 ## Dashboard Design & Business Insights
 
-The interactive dashboard turns raw analytics into actionable insights for
-executives, risk managers and investigators.  A detailed description of
-each dashboard page is provided in
-[`dashboards/dashboard_description.md`](dashboards/dashboard_description.md).
-Because the Power BI file (`Dashboard_Fadi.pbix`) is large, it is **not
-tracked** in this repository; download it separately or use Git LFS as
-explained in the dashboard documentation.  Final screenshots of the
-dashboard pages should be stored in
-`dashboards/dashboard_screenshots/`.
+The dashboard converts analytical outputs into business insights for executives, compliance teams, risk managers, and investigators. A detailed explanation of each dashboard page is available in [`dashboards/dashboard_description.md`](dashboards/dashboard_description.md).
 
-The dashboard consists of six pages:
+The Power BI file `Dashboard_Fadi.pbix` is large and may not be tracked directly in this repository. If it is not included in GitHub, it should be delivered separately or managed using Git LFS. Dashboard screenshots should be stored in `dashboards/dashboard_screenshots/`.
 
-1. **Executive Overview** – high‑level KPIs and a transaction trend.
-2. **Transaction Risk Monitoring** – suspicious transactions by payment type,
-   currency, bank and over time.
-3. **High‑Risk Accounts** – top sender/receiver accounts and risk band
-   summaries.
-4. **Typology Analysis** – distribution of typology codes and suspicious
-   amounts (if available).
-5. **Model Performance** – confusion matrix, precision/recall/F1 metrics,
-   ROC/AUC curves and a model comparison table.
-6. **Investigation Detail** – transaction‑level table with filters for
-   date, account, payment type, currency, risk band and model prediction.
+The dashboard is designed around six main pages:
 
-### Key KPIs
+1. **Executive Overview:** High-level KPIs, suspicious transaction rate, total transaction volume, suspicious amount, and transaction trends.
+2. **Transaction Risk Monitoring:** Suspicious transactions by payment type, currency, bank, and time.
+3. **High-Risk Accounts:** Top sender and receiver accounts, account-level risk bands, and suspicious ratios.
+4. **Typology Analysis:** Laundering behavior categories and suspicious amount by typology, if available.
+5. **Model Performance:** Confusion matrix, precision, recall, F1-score, ROC/AUC, and model comparison.
+6. **Investigation Detail:** Transaction-level table with filters for analyst review.
 
-| KPI                         | Purpose                                           |
-| --------------------------- | ------------------------------------------------- |
-| Total transactions          | Provides context for risk metrics.                |
-| Suspicious transactions     | Main AML/risk detection count.                    |
-| Suspicious transaction rate | Indicates the concentration of suspicious activity |
-| Total suspicious amount     | Measures potential financial exposure.            |
-| High‑risk accounts          | Helps prioritise investigations.                  |
-| Top sender/receiver banks   | Shows where risk is concentrated on the origin and destination sides. |
-| Suspicious by currency      | Supports currency‑level risk monitoring.          |
-| Suspicious by payment type  | Highlights risky transaction channels.           |
-| Model recall                | Reflects the model’s ability to catch suspicious cases. |
-| False positive rate         | Indicates analyst workload due to incorrect alerts. |
+Key KPIs include:
 
-By combining KPIs, distribution charts and a detailed transaction table,
-the dashboard supports both high‑level monitoring and case‑level
-investigation.  Decision‑makers can quickly identify where risk is
-concentrated and drill down into individual transactions.
+| KPI                         | Purpose                                                 |
+| --------------------------- | ------------------------------------------------------- |
+| Total transactions          | Provides the overall monitored transaction volume.      |
+| Suspicious transactions     | Shows the main AML/risk detection count.                |
+| Suspicious transaction rate | Indicates the concentration of suspicious activity.     |
+| Total suspicious amount     | Measures possible financial exposure.                   |
+| High-risk accounts          | Helps prioritize investigation work.                    |
+| Suspicious by currency      | Supports currency-level risk monitoring.                |
+| Suspicious by payment type  | Highlights risky transaction channels.                  |
+| Model recall                | Measures the model’s ability to catch suspicious cases. |
+| False positive rate         | Indicates analyst workload caused by incorrect alerts.  |
+
+By combining KPIs, charts, and transaction-level details, the dashboard supports both high-level monitoring and case-level investigation.
 
 ## Advanced Analytics and AI Modeling
 
-The project includes a machine‑learning pipeline to classify transactions
-as suspicious or normal.  Detailed methodology and results are documented
-in [`docs/07_ai_modeling.md`](docs/07_ai_modeling.md), with the latest
-metrics summarised in [`models/model_metrics.md`](models/model_metrics.md).
+The project includes a machine learning pipeline to classify transactions as normal or suspicious. Detailed methodology and model documentation are available in [`docs/07_ai_modeling.md`](docs/07_ai_modeling.md), and model results are summarized in [`models/model_metrics.md`](models/model_metrics.md).
 
-The pipeline trains and compares several algorithms — a baseline classifier,
-logistic regression with class weights, a random forest and (optionally)
-XGBoost — using the cleaned dataset.  The notebook
-`notebooks/04_machine_learning.ipynb` handles feature preparation,
-class‑imbalance mitigation, model training, metric computation and result
-export.  Performance metrics are saved to `models/model_comparison.csv`.
+The modeling workflow includes feature preparation, class imbalance handling, train/test split, model training, model comparison, and evaluation. The models considered include a baseline model, Logistic Regression, Random Forest, and XGBoost if available.
 
-In an AML context, **recall** is more important than accuracy or precision:
-missing a suspicious transaction could allow illicit activity to go
-undetected.  However, high‑recall models often produce many false
-positives, increasing analyst workload.  The model comparison table helps
-stakeholders understand this trade‑off and choose a model that balances
-risk appetite and operational capacity.  See `docs/07_ai_modeling.md`
-for a full discussion of the modelling objective, evaluation metrics,
-confusion matrix interpretation, feature importance and limitations.
+The evaluation metrics include accuracy, precision, recall, F1-score, ROC-AUC, and confusion matrix interpretation. In AML and suspicious transaction monitoring, **recall** is especially important because missing suspicious transactions can be more serious than producing false alerts. However, false positives also matter because they increase analyst workload.
 
-## Tools Research and Selection
+Model comparison outputs are stored in [`models/model_comparison.csv`](models/model_comparison.csv), and supporting model-result documentation is available in [`images/model_results/README.md`](images/model_results/README.md).
 
-A variety of open‑source and commercial tools were evaluated for this project.  Python, pandas and Jupyter Notebooks were selected for data preparation and analysis; scikit‑learn and optional XGBoost provide the machine‑learning algorithms; Power BI delivers the final dashboard; and GitHub manages version control and submission.  A full comparison of selected tools, justifications and alternative options is provided in [docs/08_tools_selection.md](docs/08_tools_selection.md).
+## Tools Research and Selection Effort
+
+The project uses a combination of open-source and BI tools to support the full analytics workflow. Python and pandas are used for data preparation, Jupyter Notebook is used for analysis and experimentation, scikit-learn and XGBoost support machine learning, Power BI supports dashboarding, and GitHub is used for version control and final submission.
+
+A full tools comparison and justification is available in [`docs/08_tools_selection.md`](docs/08_tools_selection.md).
+
+The selected tools support the full BI lifecycle:
+
+```text
+data acquisition → cleaning → analysis → modeling → dashboarding → decision support
+```
 
 ## Project Deployment Effort / Use Case
 
-Turning the analysis into a usable solution requires a clear business workflow and deployment architecture.  In summary, transactions are ingested and cleaned, features are engineered, models assign risk scores, high‑risk cases are flagged, and the Power BI dashboard enables users to monitor KPIs and drill into individual transactions.  See [docs/09_deployment_use_case.md](docs/09_deployment_use_case.md) for the full workflow, target user descriptions, operational considerations and limitations.  A high‑level architecture diagram is available in [images/architecture_diagram.md](images/architecture_diagram.md).
+The deployment use case explains how the project could be used by a bank, financial institution, compliance team, AML analyst, or risk department. The goal is to make the analysis usable by business users through dashboard monitoring, risk scoring, and investigation support.
+
+The business workflow is:
+
+```text
+Raw Transactions → ETL/Cleaning → Feature Engineering → ML Risk Scoring → Power BI Dashboard → AML Analyst Review
+```
+
+A full deployment explanation is available in [`docs/09_deployment_use_case.md`](docs/09_deployment_use_case.md), and the architecture diagram is documented in [`images/architecture_diagram.md`](images/architecture_diagram.md).
+
+## Results
+
+The project produced a complete Business Intelligence workflow for transaction risk monitoring. The main outputs include:
+
+1. A cleaned and processed transaction dataset.
+2. ETL, EDA, statistical analysis, machine learning, and dashboard preparation notebooks.
+3. Dashboard-ready CSV exports.
+4. Dashboard design documentation.
+5. Model metrics and model comparison files.
+6. Source scripts for preprocessing, feature engineering, model training, and utilities.
+7. A data dictionary and setup documentation.
+8. A final completion audit report.
+
+The main business result is a risk-monitoring structure that helps identify suspicious transaction patterns, high-risk accounts, risky payment types, and areas where compliance analysts should focus their investigation efforts.
+
+## References
+
+* Kaggle. Anti Money Laundering Transaction Data (SAML-D). Retrieved June 3, 2026.
+* University of Petra GP_BI20252 Business Intelligence Graduation Project Template.
+* Project documentation files in the [`docs/`](docs/) folder.
+
+## Setup and Run Instructions
+
+For a full setup guide, see [`docs/SETUP.md`](docs/SETUP.md).
+
+### Install dependencies
+
+Create a virtual environment and install the required packages:
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+For macOS/Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Recommended run order
+
+Run the notebooks in this order:
+
+1. `notebooks/01_etl_transaction_risk.ipynb`
+2. `notebooks/02_eda_exploration.ipynb`
+3. `notebooks/03_statistical_analysis.ipynb`
+4. `notebooks/04_machine_learning.ipynb`
+5. `notebooks/05_dashboard_preparation.ipynb`
+
+### Run source scripts
+
+Source scripts are stored in `src/`:
+
+```bash
+python src/data_preprocessing.py
+python src/model_training.py
+```
+
+### Dashboard usage
+
+Dashboard-ready files are generated in `dashboards/dashboard_data/`. Open the Power BI dashboard file in Power BI Desktop if it is available locally, or use the dashboard documentation and screenshots in the `dashboards/` folder.
+
+## Repository Structure
+
+```text
+transaction-detection-risk-monitoring/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── requirements.txt
+├── docs/
+│   ├── 00_title_page_authors.md
+│   ├── 01_project_description.md
+│   ├── 02_data_research.md
+│   ├── 03_raw_data_links.md
+│   ├── 04_data_description.md
+│   ├── 05_cleaning_transformation.md
+│   ├── 06_visualization_insights.md
+│   ├── 07_ai_modeling.md
+│   ├── 08_tools_selection.md
+│   ├── 09_deployment_use_case.md
+│   ├── 10_results.md
+│   ├── 11_references.md
+│   ├── SETUP.md
+│   ├── DATA_DICTIONARY.md
+│   └── FINAL_COMPLETION_AUDIT.md
+├── data/
+│   ├── raw/
+│   │   ├── README.md
+│   │   └── SAML-D_reduced.txt
+│   └── processed/
+│       ├── README.md
+│       └── SAML-D_clean_optimized.zip
+├── notebooks/
+│   ├── 01_etl_transaction_risk.ipynb
+│   ├── 02_eda_exploration.ipynb
+│   ├── 03_statistical_analysis.ipynb
+│   ├── 04_machine_learning.ipynb
+│   └── 05_dashboard_preparation.ipynb
+├── src/
+│   ├── data_preprocessing.py
+│   ├── feature_engineering.py
+│   ├── model_training.py
+│   └── utils.py
+├── dashboards/
+│   ├── dashboard_description.md
+│   ├── dashboard_data/
+│   └── dashboard_screenshots/
+├── models/
+│   ├── model_metrics.md
+│   └── model_comparison.csv
+└── images/
+    ├── architecture_diagram.md
+    └── model_results/
+```
+
+## License
+
+This project is licensed under the terms of the MIT license. See the [`LICENSE`](LICENSE) file for details.
