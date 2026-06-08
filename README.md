@@ -77,7 +77,7 @@ More details are available in [`docs/02_data_research.md`](docs/02_data_research
 
 ## Data Description and Understanding
 
-The dataset used in this project is a financial transaction dataset designed for anti-money laundering and suspicious transaction monitoring. It contains transaction-level records with information about sender accounts, receiver accounts, transaction amount, currencies, bank locations, payment methods, laundering labels, laundering types, and transaction date and time. The cleaned dataset contains **633,657 transactions** and **11 fields**.
+The dataset used in this project is a financial transaction dataset designed for anti-money laundering and suspicious transaction monitoring. It contains transaction-level records with information about sender accounts, receiver accounts, transaction amount, currencies, bank locations, payment methods, laundering labels, laundering types, and transaction date and time. The cleaned dataset contains **950,486 transactions** and **11 fields**.
 
 ### Data Dictionary
 
